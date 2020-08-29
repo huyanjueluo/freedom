@@ -39,6 +39,6 @@ func TestCartShop(t *testing.T) {
 	obj := dto.CartShopReq{
 		UserId: 1, //用户id
 	}
-	str, err := requests.NewHttpRequest("http://127.0.0.1:8000/cart/shop").Post().SetJSONBody(obj).ToString()
+	str, err := requests.NewHTTPRequest("http://127.0.0.1:8000/cart/shop").Post().SetJSONBody(obj).ToString()
 	t.Log(str, err)
 }

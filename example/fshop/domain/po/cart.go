@@ -33,74 +33,58 @@ func (obj *Cart) TakeChanges() map[string]interface{} {
 	return result
 }
 
-// SetUserId .
-func (obj *Cart) SetUserId(userId int) {
+// updateChanges .
+func (obj *Cart) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+// SetUserId .
+func (obj *Cart) SetUserId(userId int) {
 	obj.UserId = userId
-	obj.changes["user_id"] = userId
+	obj.setChanges("user_id", userId)
 }
 
 // SetGoodsId .
 func (obj *Cart) SetGoodsId(goodsId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.GoodsId = goodsId
-	obj.changes["goods_id"] = goodsId
+	obj.setChanges("goods_id", goodsId)
 }
 
 // SetNum .
 func (obj *Cart) SetNum(num int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Num = num
-	obj.changes["num"] = num
+	obj.setChanges("num", num)
 }
 
 // SetCreated .
 func (obj *Cart) SetCreated(created time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Created = created
-	obj.changes["created"] = created
+	obj.setChanges("created", created)
 }
 
 // SetUpdated .
 func (obj *Cart) SetUpdated(updated time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Updated = updated
-	obj.changes["updated"] = updated
+	obj.setChanges("updated", updated)
 }
 
 // AddUserId .
 func (obj *Cart) AddUserId(userId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.UserId += userId
-	obj.changes["user_id"] = gorm.Expr("user_id + ?", userId)
+	obj.setChanges("user_id", gorm.Expr("user_id + ?", userId))
 }
 
 // AddGoodsId .
 func (obj *Cart) AddGoodsId(goodsId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.GoodsId += goodsId
-	obj.changes["goods_id"] = gorm.Expr("goods_id + ?", goodsId)
+	obj.setChanges("goods_id", gorm.Expr("goods_id + ?", goodsId))
 }
 
 // AddNum .
 func (obj *Cart) AddNum(num int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Num += num
-	obj.changes["num"] = gorm.Expr("num + ?", num)
+	obj.setChanges("num", gorm.Expr("num + ?", num))
 }

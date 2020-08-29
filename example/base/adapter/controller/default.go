@@ -25,6 +25,7 @@ func init() {
 	})
 }
 
+// Default .
 type Default struct {
 	Sev     *domain.Default
 	Worker  freedom.Worker

@@ -26,6 +26,7 @@ type requestLoggerMiddleware struct {
 	config *RequestLoggerConfig
 }
 
+// NewRequest .
 func NewRequest(cfg *RequestLoggerConfig) context.Handler {
 	l := &requestLoggerMiddleware{config: cfg}
 	return l.ServeHTTP

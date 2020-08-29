@@ -11,6 +11,7 @@ const (
 )
 
 var (
+	// VersionCmd .
 	VersionCmd = &cobra.Command{
 		Use:   "version",
 		Short: "Output current version number",

@@ -34,74 +34,58 @@ func (obj *OrderDetail) TakeChanges() map[string]interface{} {
 	return result
 }
 
-// SetOrderNo .
-func (obj *OrderDetail) SetOrderNo(orderNo string) {
+// updateChanges .
+func (obj *OrderDetail) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+// SetOrderNo .
+func (obj *OrderDetail) SetOrderNo(orderNo string) {
 	obj.OrderNo = orderNo
-	obj.changes["order_no"] = orderNo
+	obj.setChanges("order_no", orderNo)
 }
 
 // SetGoodsId .
 func (obj *OrderDetail) SetGoodsId(goodsId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.GoodsId = goodsId
-	obj.changes["goods_id"] = goodsId
+	obj.setChanges("goods_id", goodsId)
 }
 
 // SetNum .
 func (obj *OrderDetail) SetNum(num int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Num = num
-	obj.changes["num"] = num
+	obj.setChanges("num", num)
 }
 
 // SetGoodsName .
 func (obj *OrderDetail) SetGoodsName(goodsName string) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.GoodsName = goodsName
-	obj.changes["goods_name"] = goodsName
+	obj.setChanges("goods_name", goodsName)
 }
 
 // SetCreated .
 func (obj *OrderDetail) SetCreated(created time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Created = created
-	obj.changes["created"] = created
+	obj.setChanges("created", created)
 }
 
 // SetUpdated .
 func (obj *OrderDetail) SetUpdated(updated time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Updated = updated
-	obj.changes["updated"] = updated
+	obj.setChanges("updated", updated)
 }
 
 // AddGoodsId .
 func (obj *OrderDetail) AddGoodsId(goodsId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.GoodsId += goodsId
-	obj.changes["goods_id"] = gorm.Expr("goods_id + ?", goodsId)
+	obj.setChanges("goods_id", gorm.Expr("goods_id + ?", goodsId))
 }
 
 // AddNum .
 func (obj *OrderDetail) AddNum(num int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Num += num
-	obj.changes["num"] = gorm.Expr("num + ?", num)
+	obj.setChanges("num", gorm.Expr("num + ?", num))
 }

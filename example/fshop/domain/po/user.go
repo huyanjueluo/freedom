@@ -33,56 +33,46 @@ func (obj *User) TakeChanges() map[string]interface{} {
 	return result
 }
 
-// SetName .
-func (obj *User) SetName(name string) {
+// updateChanges .
+func (obj *User) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+// SetName .
+func (obj *User) SetName(name string) {
 	obj.Name = name
-	obj.changes["name"] = name
+	obj.setChanges("name", name)
 }
 
 // SetMoney .
 func (obj *User) SetMoney(money int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Money = money
-	obj.changes["money"] = money
+	obj.setChanges("money", money)
 }
 
 // SetPassword .
 func (obj *User) SetPassword(password string) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Password = password
-	obj.changes["password"] = password
+	obj.setChanges("password", password)
 }
 
 // SetCreated .
 func (obj *User) SetCreated(created time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Created = created
-	obj.changes["created"] = created
+	obj.setChanges("created", created)
 }
 
 // SetUpdated .
 func (obj *User) SetUpdated(updated time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Updated = updated
-	obj.changes["updated"] = updated
+	obj.setChanges("updated", updated)
 }
 
 // AddMoney .
 func (obj *User) AddMoney(money int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Money += money
-	obj.changes["money"] = gorm.Expr("money + ?", money)
+	obj.setChanges("money", gorm.Expr("money + ?", money))
 }

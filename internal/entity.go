@@ -9,6 +9,7 @@ import (
 
 var _ Entity = new(entity)
 
+//Entity is the entity's father interface.
 type Entity interface {
 	DomainEvent(eventName string, object interface{}, header ...map[string]string)
 	Identity() string
@@ -17,6 +18,7 @@ type Entity interface {
 	Marshal() []byte
 }
 
+//DomainEventInfra is a dependency inverted interface for domain events.
 type DomainEventInfra interface {
 	DomainEvent(producer, topic string, data []byte, worker Worker, header ...map[string]string)
 }

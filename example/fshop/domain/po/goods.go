@@ -34,74 +34,58 @@ func (obj *Goods) TakeChanges() map[string]interface{} {
 	return result
 }
 
-// SetName .
-func (obj *Goods) SetName(name string) {
+// updateChanges .
+func (obj *Goods) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+// SetName .
+func (obj *Goods) SetName(name string) {
 	obj.Name = name
-	obj.changes["name"] = name
+	obj.setChanges("name", name)
 }
 
 // SetPrice .
 func (obj *Goods) SetPrice(price int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Price = price
-	obj.changes["price"] = price
+	obj.setChanges("price", price)
 }
 
 // SetStock .
 func (obj *Goods) SetStock(stock int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Stock = stock
-	obj.changes["stock"] = stock
+	obj.setChanges("stock", stock)
 }
 
 // SetTag .
 func (obj *Goods) SetTag(tag string) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Tag = tag
-	obj.changes["tag"] = tag
+	obj.setChanges("tag", tag)
 }
 
 // SetCreated .
 func (obj *Goods) SetCreated(created time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Created = created
-	obj.changes["created"] = created
+	obj.setChanges("created", created)
 }
 
 // SetUpdated .
 func (obj *Goods) SetUpdated(updated time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Updated = updated
-	obj.changes["updated"] = updated
+	obj.setChanges("updated", updated)
 }
 
 // AddPrice .
 func (obj *Goods) AddPrice(price int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Price += price
-	obj.changes["price"] = gorm.Expr("price + ?", price)
+	obj.setChanges("price", gorm.Expr("price + ?", price))
 }
 
 // AddStock .
 func (obj *Goods) AddStock(stock int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Stock += stock
-	obj.changes["stock"] = gorm.Expr("stock + ?", stock)
+	obj.setChanges("stock", gorm.Expr("stock + ?", stock))
 }

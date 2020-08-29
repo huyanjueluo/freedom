@@ -29,6 +29,8 @@ func main() {
 
 	timer.FixedTime(app) //非控制器使用领域服务示例
 	addrRunner := app.CreateH2CRunner(conf.Get().App.Other["listen_addr"].(string))
+	//app.InstallParty("/fshop")
+	liveness(app)
 	app.Run(addrRunner, *conf.Get().App)
 }
 
@@ -84,5 +86,11 @@ func installRedis(app freedom.Application) {
 			freedom.Logger().Fatal(e.Error())
 		}
 		return
+	})
+}
+
+func liveness(app freedom.Application) {
+	app.Iris().Get("/ping", func(ctx freedom.Context) {
+		ctx.WriteString("pong")
 	})
 }

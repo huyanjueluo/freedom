@@ -23,25 +23,27 @@ func (obj *{{.Name}})TakeChanges() map[string]interface{} {
 	return result
 }
 
-{{range .Fields}}
-// Set{{.Value}} .
-func (obj *{{.StructName}}) Set{{.Value}} ({{.Arg}} {{.Type}}) {
+// updateChanges .
+func (obj *{{.Name}}) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+{{range .Fields}}
+// Set{{.Value}} .
+func (obj *{{.StructName}}) Set{{.Value}} ({{.Arg}} {{.Type}}) {
 	obj.{{.Value}} = {{.Arg}} 
-	obj.changes["{{.Column}}"] = {{.Arg}}
+	obj.setChanges("{{.Column}}", {{.Arg}})
 }
 {{ end }}
 
 {{range .NumberFields}}
 // Add{{.Value}} .
 func (obj *{{.StructName}}) Add{{.Value}} ({{.Arg}} {{.Type}}) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.{{.Value}} += {{.Arg}} 
-	obj.changes["{{.Column}}"] = gorm.Expr("{{.Column}} + ?", {{.Arg}})
+	obj.setChanges("{{.Column}}", gorm.Expr("{{.Column}} + ?", {{.Arg}}))
 }
 {{ end }}
 `

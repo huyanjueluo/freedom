@@ -34,74 +34,58 @@ func (obj *Order) TakeChanges() map[string]interface{} {
 	return result
 }
 
-// SetOrderNo .
-func (obj *Order) SetOrderNo(orderNo string) {
+// updateChanges .
+func (obj *Order) setChanges(name string, value interface{}) {
 	if obj.changes == nil {
 		obj.changes = make(map[string]interface{})
 	}
+	obj.changes[name] = value
+}
+
+// SetOrderNo .
+func (obj *Order) SetOrderNo(orderNo string) {
 	obj.OrderNo = orderNo
-	obj.changes["order_no"] = orderNo
+	obj.setChanges("order_no", orderNo)
 }
 
 // SetUserId .
 func (obj *Order) SetUserId(userId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.UserId = userId
-	obj.changes["user_id"] = userId
+	obj.setChanges("user_id", userId)
 }
 
 // SetTotalPrice .
 func (obj *Order) SetTotalPrice(totalPrice int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.TotalPrice = totalPrice
-	obj.changes["total_price"] = totalPrice
+	obj.setChanges("total_price", totalPrice)
 }
 
 // SetStatus .
 func (obj *Order) SetStatus(status string) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Status = status
-	obj.changes["status"] = status
+	obj.setChanges("status", status)
 }
 
 // SetCreated .
 func (obj *Order) SetCreated(created time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Created = created
-	obj.changes["created"] = created
+	obj.setChanges("created", created)
 }
 
 // SetUpdated .
 func (obj *Order) SetUpdated(updated time.Time) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.Updated = updated
-	obj.changes["updated"] = updated
+	obj.setChanges("updated", updated)
 }
 
 // AddUserId .
 func (obj *Order) AddUserId(userId int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.UserId += userId
-	obj.changes["user_id"] = gorm.Expr("user_id + ?", userId)
+	obj.setChanges("user_id", gorm.Expr("user_id + ?", userId))
 }
 
 // AddTotalPrice .
 func (obj *Order) AddTotalPrice(totalPrice int) {
-	if obj.changes == nil {
-		obj.changes = make(map[string]interface{})
-	}
 	obj.TotalPrice += totalPrice
-	obj.changes["total_price"] = gorm.Expr("total_price + ?", totalPrice)
+	obj.setChanges("total_price", gorm.Expr("total_price + ?", totalPrice))
 }

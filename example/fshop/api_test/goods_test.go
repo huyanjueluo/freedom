@@ -53,6 +53,6 @@ func TestGoodsShop(t *testing.T) {
 		Id:     1, //商品id
 		Num:    2, //商品数量
 	}
-	str, err := requests.NewHttpRequest("http://127.0.0.1:8000/goods/shop").Post().SetJSONBody(obj).ToString()
+	str, err := requests.NewHTTPRequest("http://127.0.0.1:8000/goods/shop").Post().SetJSONBody(obj).ToString()
 	t.Log(str, err)
 }
