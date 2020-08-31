@@ -14,7 +14,7 @@ import (
 
 // NewRequestLogger .
 func NewRequestLogger(traceIDName string, loggerConf ...*RequestLoggerConfig) func(context.Context) {
-	l := DefaultConfig()
+	l := DefaultLoggerConfig()
 	if len(loggerConf) > 0 {
 		l = loggerConf[0]
 	}
@@ -89,6 +89,7 @@ func (l *requestLoggerMiddleware) ServeHTTP(ctx context.Context) {
 	}
 
 	if l.config.RequestRawBody && len(reqBodyBys) > 0 {
+		reqBodyBys = reqBodyBys[0:l.config.RequestRawBodyMaxLen]
 		msg := string(reqBodyBys)
 		if msg != "" {
 			fieldsMessage["request"] = msg
