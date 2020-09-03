@@ -2,6 +2,8 @@ package controller
 
 import (
 	"github.com/8treenet/freedom"
+	"github.com/8treenet/freedom/example/base/domain"
+	"github.com/8treenet/freedom/example/base/infra"
 )
 
 func init() {
@@ -17,7 +19,15 @@ func init() {
 
 // DefaultV2 .
 type DefaultV2 struct {
-	Default //super
+	Default      //super
+	DefServiceV2 *domain.DefaultV2
+}
+
+// Get handles the GET: / route.
+func (c *DefaultV2) Get() freedom.Result {
+	c.Worker.Logger().Info("I'm v2 Controller")
+	remote := c.DefServiceV2.RemoteInfo()
+	return &infra.JSONResponse{Object: remote}
 }
 
 // GetHello handles the GET: /hello route.

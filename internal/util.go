@@ -530,7 +530,7 @@ func allFields(dest interface{}, call func(reflect.Value)) {
 
 	for index := 0; index < destVal.NumField(); index++ {
 		if destType.Field(index).Anonymous {
-			allFields(destVal.Field(index).Interface(), call)
+			allFields(destVal.Field(index).Addr().Interface(), call)
 			continue
 		}
 		val := destVal.Field(index)
@@ -547,7 +547,7 @@ func allFieldsFromValue(val reflect.Value, call func(reflect.Value)) {
 	}
 	for index := 0; index < destVal.NumField(); index++ {
 		if destType.Field(index).Anonymous {
-			allFieldsFromValue(destVal.Field(index), call)
+			allFieldsFromValue(destVal.Field(index).Addr(), call)
 			continue
 		}
 		val := destVal.Field(index)
